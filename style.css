@@ -1,0 +1,1304 @@
+/* ========================================
+   ANIMAÇÕES E EFEITOS VISUAIS
+======================================== */
+
+/* Animações de carregamento da página */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(40, 167, 69, 0.6);
+    }
+}
+
+/* Classes de animação */
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in-left {
+    animation: fadeInLeft 0.8s ease-out forwards;
+}
+
+.animate-fade-in-right {
+    animation: fadeInRight 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-slide-down {
+    animation: slideDown 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.6s ease-out forwards;
+}
+
+.animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Estados iniciais para animações controladas por scroll */
+.scroll-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.scroll-animate.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-animate-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.8s ease-out;
+}
+
+.scroll-animate-left.animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.scroll-animate-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.8s ease-out;
+}
+
+.scroll-animate-right.animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.scroll-animate-scale {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.8s ease-out;
+}
+
+.scroll-animate-scale.animate {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Delays para animações em sequência */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+
+/* Estados iniciais para elementos com delay - NUNCA para elementos críticos */
+.animate-on-load.animate-fade-in-up:not(.header-logo):not(.btn):not(.btn-hero),
+.animate-on-load.animate-fade-in-left:not(.header-logo):not(.btn):not(.btn-hero),
+.animate-on-load.animate-fade-in-right:not(.header-logo):not(.btn):not(.btn-hero),
+.animate-on-load.animate-fade-in:not(.header-logo):not(.btn):not(.btn-hero),
+.animate-on-load.animate-slide-down:not(.header-logo):not(.btn):not(.btn-hero),
+.animate-on-load.animate-scale-in:not(.header-logo):not(.btn):not(.btn-hero) {
+    opacity: 0;
+}
+
+/* Fallback para elementos visíveis por padrão */
+.animate-fade-in-up:not(.animate-on-load),
+.animate-fade-in-left:not(.animate-on-load),
+.animate-fade-in-right:not(.animate-on-load),
+.animate-fade-in:not(.animate-on-load),
+.animate-slide-down:not(.animate-on-load),
+.animate-scale-in:not(.animate-on-load) {
+    opacity: 1;
+    transform: none;
+}
+
+/* Transições suaves globais - removido transform para evitar problemas de layout */
+* {
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Garantir que todos os textos sejam visíveis por padrão */
+p, h1, h2, h3, h4, h5, h6, span, div, section {
+    opacity: 1 !important;
+}
+
+/* Garantir que elementos críticos sempre sejam visíveis */
+.header-logo, 
+.btn, 
+.btn-hero, 
+.btn-primary, 
+.btn-secondary,
+.hero-content h1,
+.hero-content .description,
+.contact-header {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Elementos de animação específica mantêm suas regras */
+.scroll-animate:not(.animate),
+.scroll-animate-left:not(.animate),
+.scroll-animate-right:not(.animate),
+.scroll-animate-scale:not(.animate) {
+    opacity: 1;
+}
+
+/* Animações suaves sem ocultar conteúdo */
+.animate-on-scroll {
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Efeitos de hover melhorados */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.hover-scale {
+    transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+.hover-glow {
+    transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 20px rgba(40, 167, 69, 0.4);
+}
+
+/* ========================================
+   FIM DAS ANIMAÇÕES
+======================================== */
+
+/* General Body and Typography */
+body {
+    font-family: 'Montserrat', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: 1.7;
+    color: #333;
+    background-color: #f8f9fa;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Garantir que seções não tenham overflow oculto */
+section {
+    overflow: visible;
+}
+
+/* Garantir que todos os iframes sejam responsivos */
+iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    box-sizing: border-box; /* Ensure padding doesn't cause overflow */
+    overflow: visible; /* Allow content to be visible */
+    padding: 0 20px; /* Adiciona padding lateral para melhor espaçamento */
+}
+
+/* Container específico para hero section - alinhado à esquerda */
+.hero-section .container {
+    margin: 0; /* Remove margin auto para não centralizar */
+    margin-left: 0; /* Garantir alinhamento à esquerda */
+}
+
+/* Section Padding - Padronizado para todas as seções */
+.section-padding {
+    padding: 60px 0;
+    position: relative;
+}
+
+.bg-light {
+    background-color: #e9ecef;
+}
+
+/* Section Headers - Padrão sem ícones */
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: 0; /* Garantir que não há margem superior */
+    position: relative;
+}
+
+.section-title {
+    font-size: 2.8em;
+    color: #004085;
+    margin-bottom: 15px;
+    margin-top: 0; /* Garantir distância uniforme do topo */
+    position: relative;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #28a745, #20c997);
+    border-radius: 2px;
+}
+
+.section-subtitle {
+    font-size: 1.2em;
+    color: #666;
+    font-style: italic;
+    margin: 0;
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Garantir espaçamento uniforme do topo em todas as seções */
+section.section-padding > .container > *:first-child {
+    margin-top: 0 !important;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 14px 30px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    transform: translateY(0);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Hero Button specific style (from image) */
+.btn-hero {
+    background: #00e0a7; /* Light green from the image */
+    color: #0056b3; /* Darker text for contrast on light button */
+    padding: 15px 40px; /* Larger button */
+    border-radius: 5px; /* Slightly less rounded than default .btn */
+    font-weight: 700;
+    box-shadow: none; /* No shadow as per image */
+}
+
+.btn-hero:hover {
+    background: #00c793; /* Slightly darker on hover */
+    color: #004085;
+}
+
+/* Other buttons retain previous styling unless specified */
+.btn-primary {
+    background: #28a745;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+    border-radius: 30px; /* Pill shape */
+}
+
+.btn-primary:hover {
+    background: #218838;
+    box-shadow: 0 6px 12px rgba(40, 167, 69, 0.4);
+}
+
+.btn-secondary {
+    background: #007bff;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    border-radius: 30px; /* Pill shape */
+}
+
+.btn-secondary:hover {
+    background: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4);
+}
+
+.btn-full-width {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+/* Header Section (Hero) - Full Page Coverage and Image Matching */
+.main-header {
+    width: 100%;
+    position: relative;
+    overflow: visible;
+}
+
+.hero-section {
+    /* Linear gradient on the left side, fading to transparent to reveal image */
+    /* Adjust gradient colors and stop points to match your AI image's gradient transition */
+    background: linear-gradient(to right, #0056b3 0%, #0056b3 50%, rgba(255, 255, 255, 0) 80%), /* Blue gradient for left part */
+                url('1.png') no-repeat right center/cover; /* Imagem 1.png no lado direito */
+
+    background-size: auto 100%, cover; /* Gradient width auto height 100%, image covers remaining */
+    background-position: left center, right center; /* Gradient left, image right */
+
+    min-height: 100vh; /* Use min-height instead of fixed height */
+    height: auto; /* Allow height to grow with content */
+    display: flex;
+    align-items: center; /* Vertically center content */
+    justify-content: flex-start; /* IMPORTANT: Align content block to the left */
+    color: #fff; /* Default text color, will be overridden for description */
+    position: relative; /* Adicionar posicionamento para evitar problemas de layout */
+    z-index: 1; /* Garantir que não interfira com outras seções */
+}
+
+/* The previous .overlay is no longer needed as the gradient handles the background */
+
+.hero-content {
+    text-align: left; /* IMPORTANT: Align text within this block to the left */
+    max-width: 600px; /* Limit width of text content */
+    padding-left: 5%; /* Reduzido: Menos padding para ficar mais próximo da borda esquerda */
+    position: relative;
+    z-index: 2; /* Ensure content is above background */
+    color: #fff; /* Ensure main text on gradient is white */
+    margin-left: 0; /* Garantir que não há margem à esquerda */
+}
+
+.header-logo {
+    width: 200px; /* Adjust size of the logo as per the image */
+    margin-bottom: 20px; /* Space below the logo */
+    display: block; /* Ensures it takes its own line */
+}
+
+.hero-content h1 {
+    font-size: 3em; /* Larger font size, adjusted for better fit */
+    margin-bottom: 15px; /* Space below the title */
+    line-height: 1.2;
+    font-weight: 700;
+    color: #fff; /* Ensure white text */
+    text-shadow: none; /* No text shadow as per image */
+}
+
+.hero-content .description {
+    font-size: 1.1em; /* Adjusted font size */
+    max-width: 550px;
+    margin: 0 0 30px 0; /* Adjust bottom margin */
+    color: #e0e0e0; /* Slightly lighter text for description */
+}
+
+.contact-header {
+    margin-top: 20px; /* Space above phone number */
+    font-size: 1.2em; /* Adjusted font size */
+    font-weight: 600;
+    color: #fff;
+}
+
+.contact-header .fas.fa-phone {
+    margin-right: 10px;
+    color: #00e0a7; /* Color matching the button/accent */
+}
+
+
+/* Quem Somos Section - Matching Image 2 */
+#quem-somos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 0; /* Padding padronizado igual às outras seções */
+    position: relative; /* Garantir posicionamento independente */
+    z-index: 2; /* Ficar acima da seção hero */
+    background: #f8f9fa; /* Garantir fundo sólido */
+}
+
+#quem-somos .container {
+    display: block; /* Mudado para block para que o título fique acima */
+}
+
+#quem-somos .quem-somos-content {
+    display: flex;
+    flex-direction: row; /* Default for larger screens */
+    align-items: center;
+    gap: 50px; /* Space between text and image (if added) */
+}
+
+#quem-somos .quem-somos-content {
+    display: flex;
+    flex-direction: row; /* Default for larger screens */
+    align-items: center;
+    gap: 50px; /* Space between text and image (if added) */
+    justify-content: center;
+}
+
+#quem-somos .quem-somos-content > div {
+    flex: 1; /* Takes up available space */
+    max-width: 600px; /* Limit text width */
+    text-align: left; /* Align text left */
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+
+/* Placeholder for the image on the left in Quem Somos, if you add it */
+/* This clip-path might require SVG or more complex CSS for perfect replication. */
+/* For simplicity, consider just rounded corners or a slight tilt initially. */
+.quem-somos-image {
+    flex: 1; /* Takes up remaining space */
+    min-width: 350px; /* Adjust as needed */
+    height: 400px; /* Placeholder height */
+    background: url('https://via.placeholder.com/400x400/CCCCCC/888888?text=IMAGEM+DA+CLINICA') no-repeat center center/cover;
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    /* clip-path: polygon(0 0, 100% 15%, 100% 100%, 0% 85%); */
+}
+
+
+/* Video Section - Matching Image 3 */
+#video-section {
+    background-color: #e9ecef; /* Cor de fundo igual às outras seções bg-light */
+    padding: 80px 0;
+    text-align: center;
+    color: #333; /* Cor do texto escura para contrastar com fundo claro */
+    display: block;
+    width: 100%;
+}
+
+#video-section .container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto !important;
+    padding: 0;
+}
+
+#video-section .section-header {
+    width: 100%;
+    text-align: center !important;
+    margin-bottom: 60px;
+    align-self: center;
+}
+
+#video-section .section-title {
+    color: #004085; /* Cor padrão dos títulos */
+}
+
+#video-section .section-title::after {
+    background: linear-gradient(90deg, #28a745, #20c997); /* Padrão das outras seções */
+}
+
+#video-section .video-responsive {
+    position: relative;
+    padding-bottom: 35%; /* Reduzido de 56.25% para 35% - muito menor altura */
+    height: 0;
+    overflow: hidden;
+    max-width: 700px; /* Volta para o tamanho original da largura */
+    width: 80%; /* Volta para o tamanho original da largura */
+    margin: 0 auto 30px !important;
+    background-color: #000;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    display: block;
+    align-self: center !important;
+}
+
+#video-section .video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+#video-section .video-description {
+    font-style: italic;
+    color: #666; /* Cor padrão dos subtítulos */
+    margin: 20px auto 0 !important;
+    max-width: 700px; /* Ajustado para combinar com o vídeo */
+    text-align: center !important;
+    line-height: 1.6;
+    display: block;
+    width: 80%; /* Ajustado para combinar com o vídeo */
+    padding: 0 20px;
+    font-size: 1.1em; /* Ligeiramente maior */
+    align-self: center !important;
+}
+
+/* Seção Tomografia Destaque */
+.tomografia-hero {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 80px 0;
+    position: relative;
+}
+
+.tomografia-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23007bff" opacity="0.1"/></svg>') repeat;
+    background-size: 50px 50px;
+    z-index: 1;
+}
+
+.tomografia-content {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    position: relative;
+    z-index: 2;
+}
+
+.tomografia-text {
+    flex: 1;
+    max-width: 600px;
+}
+
+
+
+.tomografia-services {
+    margin-bottom: 30px;
+}
+
+.service-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 12px 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.service-item i {
+    color: #28a745;
+    font-size: 1.2em;
+    margin-right: 15px;
+}
+
+.service-item span {
+    font-size: 1.1em;
+    color: #333;
+    font-weight: 500;
+}
+
+.tomografia-description {
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.tomografia-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-placeholder {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.image-placeholder::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255,255,255,0.1) 10px,
+        rgba(255,255,255,0.1) 20px
+    );
+    animation: slide 3s linear infinite;
+}
+
+@keyframes slide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.image-placeholder i {
+    font-size: 4em;
+    margin-bottom: 20px;
+    z-index: 1;
+}
+
+.image-placeholder p {
+    font-size: 1.2em;
+    font-weight: 600;
+    text-align: center;
+    z-index: 1;
+    margin: 0;
+}
+
+/* Responsive para Tomografia Hero */
+@media (max-width: 992px) {
+    .tomografia-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tomografia-hero {
+        padding: 60px 0;
+    }
+    
+    .service-item {
+        padding: 10px 15px;
+    }
+    
+    .image-placeholder {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .image-placeholder i {
+        font-size: 3em;
+    }
+}
+
+@media (max-width: 576px) {
+    .tomografia-hero {
+        padding: 40px 0;
+    }
+    
+    .appointment-form-section {
+        padding: 40px 0;
+    }
+}
+
+/* Services Grid */
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.service-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transform: translateY(0) scale(1);
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #28a745, #20c997);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+    transform-origin: left;
+}
+
+.service-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(40, 167, 69, 0.03) 0%, transparent 70%);
+    transform: scale(0);
+    transition: transform 0.6s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+.service-card:hover::after {
+    transform: scale(1);
+}
+
+.service-card h3 {
+    color: #007bff;
+    font-size: 1.6em;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.service-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.service-card ul li {
+    padding: 5px 0;
+    color: #555;
+}
+
+/* Location Section - Matching Image 4 */
+#localizacao {
+    text-align: center; /* Centraliza tudo na seção */
+}
+
+#localizacao .container {
+    padding: 0 10px; /* Padding mínimo para não afetar a centralização */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#localizacao .section-header {
+    text-align: center; /* Força centralização do cabeçalho */
+    margin-bottom: 60px; /* Mais espaçamento para o cabeçalho */
+}
+
+.location-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: stretch; /* Garante que os elementos tenham a mesma altura */
+    justify-content: center;
+    max-width: 1100px; /* Reduz um pouco para melhor centralização */
+    margin: 0 auto; /* Centraliza o conteúdo */
+    padding: 0; /* Remove qualquer padding que possa afetar a centralização */
+    text-align: left; /* Retorna alinhamento à esquerda para o conteúdo interno */
+}
+
+.map-container {
+    flex: 1.5; /* Reduz proporção para melhor equilíbrio */
+    min-width: 300px;
+    max-width: 500px; /* Limita largura máxima */
+    height: 400px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    margin: 0 auto; /* Força centralização */
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block; /* Ensure proper display */
+    max-width: 100%; /* Prevent overflow */
+    border-radius: 8px;
+}
+
+.address-info {
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px; /* Limita largura máxima para melhor proporção */
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-sizing: border-box; /* Inclui padding no cálculo da largura */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribui conteúdo verticalmente */
+    margin: 0 auto; /* Força centralização */
+}
+
+.address-info h3 {
+    color: #004085;
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.address-info p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.address-info .fas { /* Font Awesome icons */
+    margin-right: 8px;
+    color: #28a745;
+}
+
+.address-info .phone-large {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #28a745;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+/* Appointment Form */
+.appointment-form-section {
+    background-color: #f0f8ff;
+    padding: 80px 0;
+}
+
+.appointment-form {
+    max-width: 700px;
+    margin: auto;
+    padding: 40px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.appointment-form .form-group {
+    margin-bottom: 20px;
+}
+
+.appointment-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.appointment-form input[type="text"],
+.appointment-form input[type="tel"],
+.appointment-form input[type="email"] {
+    width: calc(100% - 22px);
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #495057;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.appointment-form input[type="text"]:focus,
+.appointment-form input[type="tel"]:focus,
+.appointment-form input[type="email"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+/* Footer */
+.main-footer {
+    background: #212529;
+    color: #dee2e6;
+    text-align: center;
+    padding: 30px 0;
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+.main-footer p {
+    margin: 5px 0;
+}
+
+.main-footer .footer-link,
+.main-footer .social-icon {
+    color: #4CAF50;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.main-footer .footer-link:hover,
+.main-footer .social-icon:hover {
+    color: #5cb85c;
+    text-decoration: underline;
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.social-links {
+    margin-top: 15px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .hero-content h1 {
+        font-size: 2.8em;
+    }
+    .hero-content .description {
+        font-size: 1.05em;
+    }
+    .header-logo {
+        width: 200px;
+    }
+    #quem-somos {
+        padding: 50px 0 80px 0; /* Ajustar padding para telas médias */
+    }
+    .section-header {
+        margin-bottom: 50px;
+    }
+    .section-title {
+        font-size: 2.5em;
+        letter-spacing: 1px;
+    }
+    .section-subtitle {
+        font-size: 1.1em;
+    }
+    #quem-somos .quem-somos-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+    #quem-somos .quem-somos-content > div {
+        text-align: center;
+        max-width: 100%;
+    }
+    .quem-somos-image {
+        margin-top: 40px;
+    }
+    .service-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    .location-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px; /* Reduz gap em telas médias */
+        padding: 0 20px; /* Padding lateral para não tocar as bordas */
+    }
+    .map-container, .address-info {
+        width: 100%;
+        max-width: 500px; /* Reduz max-width para melhor centralização */
+        margin: 0 auto !important; /* Força centralização */
+        flex: none; /* Remove flex para melhor controle */
+    }
+    .address-info {
+        padding: 25px; /* Reduz padding em telas médias */
+        min-width: auto; /* Remove min-width fixo */
+    }
+}
+
+@media (max-width: 768px) {
+    .section-padding {
+        padding: 60px 0; /* Aumenta padding em tablets */
+    }
+    #video-section {
+        padding: 60px 0;
+    }
+    
+    #video-section .container {
+        width: 95%;
+        padding: 0 10px;
+    }
+    #quem-somos {
+        padding: 50px 0; /* Padding padronizado igual ao section-padding */
+    }
+    #quem-somos .quem-somos-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    #quem-somos .quem-somos-content > div {
+        text-align: center;
+        max-width: 100%;
+    }
+    .section-header {
+        margin-bottom: 40px;
+        margin-top: 0; /* Garantir consistência em tablets */
+    }
+    .section-title {
+        font-size: 2.2em;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+    }
+    .section-subtitle {
+        font-size: 1em;
+    }
+    #video-section .video-responsive {
+        max-width: 95%;
+        margin: 0 auto 20px;
+        width: 95%;
+        padding-bottom: 35%; /* Altura adequada para tablet */
+    }
+    
+    #video-section .video-description {
+        padding: 0 10px;
+        font-size: 0.95em;
+    }
+    .hero-section {
+        min-height: 70vh; /* Use min-height for better content visibility */
+        height: auto; /* Allow height to grow with content */
+        background-size: auto 100%, cover; /* Ensure gradient and image scale correctly */
+        background-position: left center, right center;
+    }
+    .hero-content {
+        padding: 20px; /* Add padding all around for smaller screens */
+        text-align: left; /* Manter alinhamento à esquerda em telas menores */
+        max-width: 100%; /* Ensure it fits within screen */
+    }
+    .hero-content h1 {
+        font-size: 2.2em;
+    }
+    .hero-content .description {
+        font-size: 1em;
+    }
+    .btn-hero {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+    .contact-header {
+        font-size: 1.1em;
+    }
+    .header-logo {
+        width: 180px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        width: 95%;
+        padding: 0 15px; /* Aumenta padding para melhor espaçamento em mobile */
+    }
+    .section-padding {
+        padding: 50px 0; /* Aumenta padding em mobile para melhor espaçamento */
+    }
+    #video-section {
+        padding: 40px 0;
+    }
+    
+    #video-section .container {
+        width: 95%;
+        padding: 0 10px;
+    }
+    #quem-somos {
+        padding: 40px 0; /* Padding padronizado para telas pequenas */
+    }
+    #quem-somos .quem-somos-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    #quem-somos .quem-somos-content > div {
+        text-align: center;
+        max-width: 100%;
+    }
+    .section-header {
+        margin-bottom: 35px;
+        margin-top: 0; /* Garantir consistência em telas pequenas */
+    }
+    .section-title {
+        font-size: 1.8em;
+        letter-spacing: 0.5px;
+    }
+    .section-subtitle {
+        font-size: 0.9em;
+    }
+    #video-section .video-responsive {
+        margin: 0 auto 15px;
+        width: 95%;
+        max-width: 95%;
+        padding-bottom: 50%; /* Altura adequada para mobile */
+    }
+    
+    #video-section .video-description {
+        padding: 0 10px;
+        font-size: 0.9em;
+    }
+    .hero-section {
+        min-height: 65vh; /* Use min-height for very small screens */
+        height: auto; /* Allow height to grow with content */
+        padding: 20px 0; /* Add padding to ensure content is not cut */
+        /* You might want to adjust the gradient and image on very small screens,
+           e.g., make the gradient cover more of the screen or change background-position */
+        background-position: left center, center center; /* Maybe center image for small screens */
+    }
+    .hero-content h1 {
+        font-size: 1.8em;
+    }
+    .hero-content .description {
+        font-size: 0.9em;
+    }
+    .service-card {
+        padding: 20px;
+    }
+    .appointment-form {
+        padding: 25px;
+    }
+    .map-container {
+        height: 300px;
+        margin-bottom: 20px; /* Adiciona espaçamento entre mapa e endereço */
+    }
+    .location-content {
+        gap: 25px; /* Reduz gap em mobile */
+        padding: 0 20px; /* Padding lateral consistente */
+        flex-direction: column; /* Força layout em coluna */
+        align-items: center; /* Centraliza elementos */
+    }
+    .map-container, .address-info {
+        width: 100%;
+        max-width: 400px; /* Largura menor em mobile */
+        margin: 0 auto !important; /* Força centralização */
+        flex: none; /* Remove flex */
+    }
+    .address-info {
+        padding: 20px; /* Reduz padding em mobile */
+        min-width: auto; /* Remove min-width em mobile */
+    }
+    .address-info h3 {
+        font-size: 1.5em; /* Reduz tamanho do título em mobile */
+    }
+    .address-info p {
+        font-size: 1em; /* Ajusta tamanho do texto */
+    }
+    .btn-hero {
+        width: auto; /* Manter largura automática ao invés de 100% */
+        padding: 12px 25px;
+        display: inline-block; /* Garantir que não ocupe toda a linha */
+    }
+}
