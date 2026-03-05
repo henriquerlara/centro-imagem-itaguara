@@ -679,13 +679,14 @@ section.section-padding > .container > *:first-child {
 .tomografia-content {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 60px;
     position: relative;
     z-index: 2;
 }
 
 .tomografia-text {
-    flex: 1;
+    flex: 0 1 600px;
     max-width: 600px;
 }
 
@@ -731,7 +732,7 @@ section.section-padding > .container > *:first-child {
 }
 
 .tomografia-image {
-    flex: 1;
+    flex: 0 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
