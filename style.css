@@ -636,6 +636,13 @@ section.section-padding > .container > *:first-child {
     border: 0;
 }
 
+/* Só a área do post (vídeo), corta comentários/curtidas embaixo */
+#video-section .video-responsive--instagram {
+    max-width: 400px;
+    padding-bottom: 52%; /* só cabeçalho + vídeo, corta o resto */
+    overflow: hidden;
+}
+
 #video-section .video-description {
     font-style: italic;
     color: #666; /* Cor padrão dos subtítulos */
@@ -730,55 +737,28 @@ section.section-padding > .container > *:first-child {
     align-items: center;
 }
 
-.image-placeholder {
-    width: 300px;
-    height: 300px;
-    background: linear-gradient(135deg, #007bff, #0056b3);
+.tomografia-equipamento-img {
+    width: 100%;
+    max-width: 260px;
     border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
-    position: relative;
     overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.25), 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.image-placeholder::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 10px,
-        rgba(255,255,255,0.1) 10px,
-        rgba(255,255,255,0.1) 20px
-    );
-    animation: slide 3s linear infinite;
+.tomografia-equipamento-img:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(0, 123, 255, 0.3), 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
-@keyframes slide {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-.image-placeholder i {
-    font-size: 4em;
-    margin-bottom: 20px;
-    z-index: 1;
-}
-
-.image-placeholder p {
-    font-size: 1.2em;
-    font-weight: 600;
-    text-align: center;
-    z-index: 1;
-    margin: 0;
+.tomografia-equipamento-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    vertical-align: middle;
 }
 
 /* Responsive para Tomografia Hero */
@@ -799,13 +779,8 @@ section.section-padding > .container > *:first-child {
         padding: 10px 15px;
     }
     
-    .image-placeholder {
-        width: 250px;
-        height: 250px;
-    }
-    
-    .image-placeholder i {
-        font-size: 3em;
+    .tomografia-equipamento-img {
+        max-width: 220px;
     }
 }
 
@@ -1163,7 +1138,13 @@ section.section-padding > .container > *:first-child {
         max-width: 95%;
         margin: 0 auto 20px;
         width: 95%;
-        padding-bottom: 35%; /* Altura adequada para tablet */
+        padding-bottom: 35%;
+    }
+    /* Tablet: embed um pouco maior para não ficar pequeno */
+    #video-section .video-responsive--instagram {
+        max-width: 85%;
+        width: 85%;
+        padding-bottom: 52%;
     }
     
     #video-section .video-description {
@@ -1243,7 +1224,13 @@ section.section-padding > .container > *:first-child {
         margin: 0 auto 15px;
         width: 95%;
         max-width: 95%;
-        padding-bottom: 50%; /* Altura adequada para mobile */
+        padding-bottom: 50%;
+    }
+    /* Mobile: embed usa toda a largura disponível e fica mais alto que no desktop */
+    #video-section .video-responsive--instagram {
+        max-width: 100%;
+        width: 100%;
+        padding-bottom: 85%; /* só no mobile: mostra mais do post/vídeo */
     }
     
     #video-section .video-description {
