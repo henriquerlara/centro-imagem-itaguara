@@ -309,41 +309,52 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // Basic form submission handling with animations
+    // Envio do formulário para WhatsApp
+    const whatsappNumber = '5531972541945'; // (31) 97254-1945 com DDI Brasil
     const form = document.getElementById('appointmentForm');
     if (form) {
         form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault();
 
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const email = document.getElementById('email').value;
-            const city = document.getElementById('city').value;
+            const name = document.getElementById('name').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const service = document.getElementById('service').value.trim();
 
-            // Animação de envio
             const submitButton = form.querySelector('button[type="submit"]');
             if (submitButton) {
                 submitButton.style.transform = 'scale(0.95)';
-                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-                
-                setTimeout(() => {
-                    submitButton.style.transform = 'scale(1)';
-                    submitButton.innerHTML = '<i class="fas fa-check"></i> Enviado!';
-                    submitButton.style.background = '#28a745';
-                    
-                    // In a real application, you would send this data to a server using fetch() or XMLHttpRequest
-                    console.log('Dados do Agendamento:', { name, phone, email, city });
-                    alert(`Obrigado, ${name}! Sua solicitação de agendamento foi enviada. Entraremos em contato em breve.`);
-
-                    form.reset(); // Clear the form fields
-                    
-                    // Resetar botão após alguns segundos
-                    setTimeout(() => {
-                        submitButton.innerHTML = 'Enviar Solicitação';
-                        submitButton.style.background = '';
-                    }, 3000);
-                }, 1500);
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Abrindo WhatsApp...';
+                submitButton.disabled = true;
             }
+
+            // Monta a mensagem que chegará no WhatsApp de vocês
+            const message = [
+                '*Solicitação de Agendamento - Site*',
+                '',
+                'Nome: ' + name,
+                'Cidade: ' + city,
+                'O que precisa: ' + service
+            ].join('\n');
+
+            const url = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(message);
+            window.open(url, '_blank');
+
+            // Feedback e reset
+            setTimeout(() => {
+                if (submitButton) {
+                    submitButton.style.transform = 'scale(1)';
+                    submitButton.innerHTML = '<i class="fas fa-check"></i> WhatsApp aberto!';
+                    submitButton.style.background = '#28a745';
+                    submitButton.disabled = false;
+                }
+                form.reset();
+                setTimeout(() => {
+                if (submitButton) {
+                    submitButton.innerHTML = 'Enviar pelo WhatsApp';
+                    submitButton.style.background = '';
+                }
+                }, 3000);
+            }, 800);
         });
         
         // Adicionar animações aos inputs

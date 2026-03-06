@@ -153,18 +153,14 @@
                         <input type="text" id="name" name="name" required placeholder="Seu nome" autocomplete="name">
                     </div>
                     <div class="form-group">
-                        <label for="phone">Telefone:</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="(XX) XXXXX-XXXX" autocomplete="tel">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" placeholder="seu.email@example.com" autocomplete="email">
-                    </div>
-                    <div class="form-group">
                         <label for="city">Cidade:</label>
                         <input type="text" id="city" name="city" required placeholder="Sua cidade" autocomplete="address-level2">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-full-width">Enviar Solicitação</button>
+                    <div class="form-group">
+                        <label for="service">O que você precisa?</label>
+                        <input type="text" id="service" name="service" required placeholder="Ex: Tomografia, Densitometria óssea, exame com sedação, agendamento geral..." autocomplete="off">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full-width">Enviar pelo WhatsApp</button>
                 </form>
             </div>
         </section>
@@ -184,4 +180,5 @@
 
     <script src="script.js"></script>
 </body>
+</html>
 </html>
