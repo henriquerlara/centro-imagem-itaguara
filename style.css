@@ -312,9 +312,13 @@ iframe {
     margin-left: 0; /* Garantir alinhamento à esquerda */
 }
 
-/* Section Padding - Padronizado para todas as seções */
+/* Section Padding - espaço de cima e de baixo iguais (embaixo precisa ser maior para parecer igual) */
+:root {
+    --section-vertical: 50px;
+    --section-vertical-bottom: 80px; /* maior embaixo para equilibrar com o de cima */
+}
 .section-padding {
-    padding: 60px 0;
+    padding: var(--section-vertical) 0 var(--section-vertical-bottom) 0;
     position: relative;
 }
 
@@ -322,11 +326,17 @@ iframe {
     background-color: #e9ecef;
 }
 
-/* Section Headers - Padrão sem ícones */
+/* Garantir que o último elemento da seção não acrescente margem (só o padding da seção conta) */
+section.section-padding > .container > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Section Headers - espaço abaixo do título = espaço acima do título */
 .section-header {
     text-align: center;
-    margin-bottom: 50px;
-    margin-top: 0; /* Garantir que não há margem superior */
+    margin-bottom: var(--section-vertical);
+    margin-top: 0;
+    padding-top: 0;
     position: relative;
 }
 
@@ -528,10 +538,10 @@ section.section-padding > .container > *:first-child {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 60px 0; /* Padding padronizado igual às outras seções */
-    position: relative; /* Garantir posicionamento independente */
-    z-index: 2; /* Ficar acima da seção hero */
-    background: #f8f9fa; /* Garantir fundo sólido */
+    padding: var(--section-vertical) 0 var(--section-vertical-bottom) 0;
+    position: relative;
+    z-index: 2;
+    background: #f8f9fa;
 }
 
 #quem-somos .container {
@@ -577,8 +587,8 @@ section.section-padding > .container > *:first-child {
 
 /* Video Section - Matching Image 3 */
 #video-section {
-    background-color: #e9ecef; /* Cor de fundo igual às outras seções bg-light */
-    padding: 80px 0;
+    background-color: #e9ecef;
+    padding: var(--section-vertical) 0 var(--section-vertical-bottom) 0;
     text-align: center;
     color: #333; /* Cor do texto escura para contrastar com fundo claro */
     display: block;
@@ -600,7 +610,7 @@ section.section-padding > .container > *:first-child {
 #video-section .section-header {
     width: 100%;
     text-align: center !important;
-    margin-bottom: 60px;
+    margin-bottom: var(--section-vertical);
     align-self: center;
 }
 
@@ -660,7 +670,7 @@ section.section-padding > .container > *:first-child {
 /* Seção Tomografia Destaque */
 .tomografia-hero {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    padding: 80px 0;
+    padding: var(--section-vertical) 0 var(--section-vertical-bottom) 0;
     position: relative;
 }
 
@@ -773,7 +783,7 @@ section.section-padding > .container > *:first-child {
 
 @media (max-width: 768px) {
     .tomografia-hero {
-        padding: 60px 0;
+        padding: var(--section-vertical) 0 var(--section-vertical-bottom) 0;
     }
     
     .service-item {
@@ -787,11 +797,11 @@ section.section-padding > .container > *:first-child {
 
 @media (max-width: 576px) {
     .tomografia-hero {
-        padding: 40px 0;
+        padding: var(--section-vertical) 0 var(--section-vertical-bottom) 0;
     }
-    
+
     .appointment-form-section {
-        padding: 40px 0;
+        padding: var(--section-vertical) 0 var(--section-vertical-bottom) 0;
     }
 }
 
@@ -882,8 +892,8 @@ section.section-padding > .container > *:first-child {
 }
 
 #localizacao .section-header {
-    text-align: center; /* Força centralização do cabeçalho */
-    margin-bottom: 60px; /* Mais espaçamento para o cabeçalho */
+    text-align: center;
+    margin-bottom: var(--section-vertical);
 }
 
 .location-content {
@@ -963,7 +973,7 @@ section.section-padding > .container > *:first-child {
 /* Appointment Form */
 .appointment-form-section {
     background-color: #f0f8ff;
-    padding: 80px 0;
+    padding: var(--section-vertical) 0 var(--section-vertical-bottom) 0;
 }
 
 .appointment-form {
@@ -1054,10 +1064,10 @@ section.section-padding > .container > *:first-child {
         width: 200px;
     }
     #quem-somos {
-        padding: 50px 0 80px 0; /* Ajustar padding para telas médias */
+        padding: var(--section-vertical) 0 var(--section-vertical-bottom) 0;
     }
     .section-header {
-        margin-bottom: 50px;
+        margin-bottom: var(--section-vertical);
     }
     .section-title {
         font-size: 2.5em;
@@ -1101,10 +1111,10 @@ section.section-padding > .container > *:first-child {
 
 @media (max-width: 768px) {
     .section-padding {
-        padding: 60px 0; /* Aumenta padding em tablets */
+        padding: var(--section-vertical) 0 var(--section-vertical-bottom) 0;
     }
     #video-section {
-        padding: 60px 0;
+        padding: var(--section-vertical) 0 var(--section-vertical-bottom) 0;
     }
     
     #video-section .container {
@@ -1112,7 +1122,7 @@ section.section-padding > .container > *:first-child {
         padding: 0 10px;
     }
     #quem-somos {
-        padding: 50px 0; /* Padding padronizado igual ao section-padding */
+        padding: var(--section-vertical) 0 var(--section-vertical-bottom) 0;
     }
     #quem-somos .quem-somos-content {
         flex-direction: column;
@@ -1124,8 +1134,8 @@ section.section-padding > .container > *:first-child {
         max-width: 100%;
     }
     .section-header {
-        margin-bottom: 40px;
-        margin-top: 0; /* Garantir consistência em tablets */
+        margin-bottom: var(--section-vertical);
+        margin-top: 0;
     }
     .section-title {
         font-size: 2.2em;
@@ -1183,15 +1193,18 @@ section.section-padding > .container > *:first-child {
 }
 
 @media (max-width: 576px) {
+    :root {
+        --section-vertical-bottom: 65px; /* um pouco menor no mobile */
+    }
     .container {
         width: 95%;
-        padding: 0 15px; /* Aumenta padding para melhor espaçamento em mobile */
+        padding: 0 15px;
     }
     .section-padding {
-        padding: 50px 0; /* Aumenta padding em mobile para melhor espaçamento */
+        padding: var(--section-vertical) 0 var(--section-vertical-bottom) 0;
     }
     #video-section {
-        padding: 40px 0;
+        padding: var(--section-vertical) 0 var(--section-vertical-bottom) 0;
     }
     
     #video-section .container {
@@ -1199,7 +1212,7 @@ section.section-padding > .container > *:first-child {
         padding: 0 10px;
     }
     #quem-somos {
-        padding: 40px 0; /* Padding padronizado para telas pequenas */
+        padding: var(--section-vertical) 0 var(--section-vertical-bottom) 0;
     }
     #quem-somos .quem-somos-content {
         flex-direction: column;
@@ -1211,8 +1224,8 @@ section.section-padding > .container > *:first-child {
         max-width: 100%;
     }
     .section-header {
-        margin-bottom: 35px;
-        margin-top: 0; /* Garantir consistência em telas pequenas */
+        margin-bottom: var(--section-vertical);
+        margin-top: 0;
     }
     .section-title {
         font-size: 1.8em;
