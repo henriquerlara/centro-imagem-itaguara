@@ -337,7 +337,12 @@ document.addEventListener('DOMContentLoaded', function() {
             ].join('\n');
 
             const url = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(message);
-            window.open(url, '_blank');
+            // No mobile, window.open costuma ser bloqueado; redirecionar na mesma aba abre o app
+            if (window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                window.location.href = url;
+            } else {
+                window.open(url, '_blank');
+            }
 
             // Feedback e reset
             setTimeout(() => {
