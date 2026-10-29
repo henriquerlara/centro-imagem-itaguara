@@ -1,0 +1,100 @@
+---
+import AppointmentLink from './AppointmentLink.astro';
+import Icon from './Icon.astro';
+const sections = [
+  ['#quem-somos', 'O centro'],
+  ['#tomografia-destaque', 'Tomografia'],
+  ['#nossos-servicos', 'Outros exames'],
+  ['#video-section', 'O espaço'],
+  ['#localizacao', 'Como chegar'],
+];
+---
+<dialog id="explore-menu" class="explore-menu" aria-labelledby="explore-title">
+  <div class="explore-heading"><div><span class="eyebrow">Por onde começamos?</span><h2 id="explore-title">Explore o centro.</h2></div><button type="button" class="explore-close" aria-label="Fechar navegação"><Icon name="close" size={21} /></button></div>
+  <nav class="explore-links" aria-label="Seções da página">{sections.map(([href, label], index) => <a href={href}><span class="explore-index">0{index + 1}</span><span>{label}</span><Icon name="diagonal" size={21} /></a>)}</nav>
+  <div class="explore-footer"><a href="tel:+5531972541945" class="phone-link"><Icon name="phone" size={17} /> (31) 97254-1945</a><AppointmentLink /></div>
+</dialog>
+<nav id="navigation" class="site-dock" aria-label="Navegação principal">
+  <div class="dock-links">
+    <a href="#quem-somos" data-nav-sections="quem-somos video-section">O centro</a>
+    <a href="#tomografia-destaque" data-nav-sections="tomografia-destaque nossos-servicos">Exames</a>
+    <a href="#localizacao" data-nav-sections="localizacao">Como chegar</a>
+  </div>
+  <button type="button" class="dock-toggle" aria-haspopup="dialog" aria-expanded="false" aria-controls="explore-menu" hidden>Explorar <Icon name="plus" size={18} /></button>
+  <AppointmentLink class="dock-appointment" />
+  <button type="button" class="dock-collapse" aria-label="Recolher navegação" title="Recolher navegação" aria-controls="navigation" aria-expanded="true" hidden><Icon name="minimize" size={18} /></button>
+  <span class="dock-progress-track" aria-hidden="true"><span class="reading-progress"></span></span>
+</nav>
+<button type="button" class="dock-restore" aria-label="Expandir navegação" aria-controls="navigation" aria-expanded="false" hidden>Menu <Icon name="plus" size={18} /></button>
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.dock-toggle');
+  const menu = document.querySelector<HTMLDialogElement>('#explore-menu');
+  if (toggle && menu && typeof menu.showModal === 'function') {
+    document.documentElement.classList.add('nav-enhanced');
+    toggle.hidden = false;
+    const dock = document.querySelector<HTMLElement>('.site-dock');
+    const collapse = document.querySelector<HTMLButtonElement>('.dock-collapse');
+    const restore = document.querySelector<HTMLButtonElement>('.dock-restore');
+    const preferenceKey = 'itaguara:dock-collapsed';
+    if (dock && collapse && restore) {
+      collapse.hidden = false;
+      const setCollapsed = (collapsed: boolean, moveFocus = false) => {
+        if (collapsed) {
+          restore.hidden = false;
+          if (moveFocus) restore.focus({ preventScroll: true });
+          dock.inert = true;
+          dock.setAttribute('aria-hidden', 'true');
+          dock.classList.add('is-collapsed');
+        } else {
+          dock.inert = false;
+          dock.removeAttribute('aria-hidden');
+          dock.classList.remove('is-collapsed');
+          if (moveFocus) {
+            const destination = window.matchMedia('(max-width: 680px)').matches ? toggle : dock.querySelector<HTMLAnchorElement>('.dock-links a');
+            destination?.focus({ preventScroll: true });
+          }
+          restore.hidden = true;
+        }
+        collapse.setAttribute('aria-expanded', String(!collapsed));
+        restore.setAttribute('aria-expanded', String(!collapsed));
+      };
+      const save = (collapsed: boolean) => {
+        try { sessionStorage.setItem(preferenceKey, collapsed ? '1' : '0'); } catch { /* Navigation works when storage is unavailable. */ }
+      };
+      collapse.addEventListener('click', () => { setCollapsed(true, true); save(true); });
+      restore.addEventListener('click', () => { setCollapsed(false, true); save(false); });
+      try { setCollapsed(sessionStorage.getItem(preferenceKey) === '1'); } catch { /* Keep the default expanded state. */ }
+    }
+    const close = () => menu.close();
+    toggle.addEventListener('click', () => {
+      menu.showModal();
+      toggle.setAttribute('aria-expanded', 'true');
+      document.documentElement.classList.add('nav-open');
+    });
+    menu.addEventListener('close', () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      document.documentElement.classList.remove('nav-open');
+    });
+    menu.querySelector('.explore-close')?.addEventListener('click', close);
+    menu.addEventListener('click', event => {
+      if (event.target !== menu) return;
+      const rect = menu.getBoundingClientRect();
+      if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) close();
+    });
+    menu.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', () => {
+        close();
+        const heading = document.querySelector<HTMLElement>(`${link.hash} h2`);
+        if (!heading) return;
+        requestAnimationFrame(() => {
+          heading.setAttribute('tabindex', '-1');
+          heading.focus({ preventScroll: true });
+          heading.addEventListener('blur', () => heading.removeAttribute('tabindex'), { once: true });
+        });
+      });
+    });
+    window.matchMedia('(min-width: 681px)').addEventListener('change', event => {
+      if (event.matches && menu.open) close();
+    });
+  }
+</script>

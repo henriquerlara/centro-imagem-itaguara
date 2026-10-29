@@ -1,0 +1,6 @@
+---
+import Icon from './Icon.astro';
+interface Props { service?: string; variant?: string; class?: string }
+const { service, variant = 'primary', class: className = '' } = Astro.props;
+---
+<a href="#agendamento" class={`button button--${variant} ${className}`} data-service={service}>Agendar exame <Icon name="arrow" size={19} /></a>

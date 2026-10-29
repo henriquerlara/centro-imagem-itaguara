@@ -1,0 +1,53 @@
+---
+import Icon from './Icon.astro';
+---
+<section id="agendamento" class="appointment section">
+  <div class="container appointment-layout">
+    <div class="appointment-copy" data-reveal>
+      <span class="eyebrow">06 / Agendamento</span>
+      <h2>Vamos marcar<br /><span>seu exame?</span></h2>
+      <p>Conte o que você precisa. Nossa equipe ajuda com o agendamento e as orientações para o seu exame.</p>
+      <a class="appointment-phone" href="tel:+5531972541945"><Icon name="phone" size={22} /> (31) 97254-1945</a>
+      <div class="appointment-question">
+        <h3>Só quer tirar uma dúvida?</h3>
+        <p>Ligue ou mande mensagem nesse número. A gente responde por WhatsApp também.</p>
+      </div>
+    </div>
+    <form id="appointmentForm" class="appointment-form" data-reveal>
+      <h3>Agendar exame</h3>
+      <p class="form-intro">É simples. A conversa continua no WhatsApp.</p>
+      <div class="form-field"><label for="name">Nome completo</label><input type="text" id="name" name="name" required maxlength="120" autocomplete="name" placeholder="Como podemos chamar você?" /></div>
+      <div class="form-field"><label for="city">Cidade</label><input type="text" id="city" name="city" required maxlength="100" autocomplete="address-level2" placeholder="Em qual cidade você mora?" /></div>
+      <div class="form-field"><label for="service">Qual exame você precisa?</label><input type="text" id="service" name="service" required maxlength="240" placeholder="Ex.: tomografia, densitometria…" /></div>
+      <button class="button button--primary form-submit" type="submit"><Icon name="message" size={20} /> Agendar exame <Icon name="arrow" size={19} /></button>
+      <p class="form-note">Ao continuar, os dados preenchidos serão incluídos em uma mensagem no WhatsApp. O horário será confirmado pela equipe.</p>
+      <p id="form-status" role="status" aria-live="polite"></p>
+      <noscript><p>Para agendar, <a href="https://wa.me/5531972541945" target="_blank" rel="noopener noreferrer">fale com a equipe pelo WhatsApp</a>.</p></noscript>
+    </form>
+  </div>
+</section>
+<script>
+  import { buildWhatsAppUrl } from '../lib/whatsapp.mjs';
+  const form = document.querySelector<HTMLFormElement>('#appointmentForm');
+  const status = document.querySelector<HTMLElement>('#form-status');
+  document.querySelectorAll<HTMLAnchorElement>('[data-service]').forEach(link => {
+    link.addEventListener('click', () => {
+      const field = document.querySelector<HTMLInputElement>('#service');
+      if (field && link.dataset.service) field.value = link.dataset.service;
+    });
+  });
+  form?.addEventListener('submit', event => {
+    event.preventDefault();
+    const fields = ['name', 'city', 'service'].map(id => form.querySelector<HTMLInputElement>(`#${id}`)!);
+    for (const field of fields) {
+      field.setCustomValidity(field.value.trim() ? '' : 'Preencha este campo para continuar.');
+      field.addEventListener('input', () => field.setCustomValidity(''), { once: true });
+    }
+    if (!form.reportValidity()) return;
+    const [name, city, service] = fields.map(field => field.value);
+    const url = buildWhatsAppUrl({ name, city, service });
+    if (status) status.textContent = 'Abrindo o WhatsApp para continuar seu agendamento…';
+    // Same-tab navigation stays inside the submit gesture, avoiding popup blockers.
+    window.location.assign(url);
+  });
+</script>

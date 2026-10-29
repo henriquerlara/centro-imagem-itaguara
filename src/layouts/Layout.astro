@@ -1,0 +1,36 @@
+---
+import '../styles/global.css';
+import '../styles/navigation.css';
+const title = 'Centro de Imagem Itaguara | Tomografia e diagnóstico por imagem';
+const description = 'Tomografia computadorizada, densitometria óssea e exames sob sedação em Itaguara, MG. Conheça o Centro de Imagem Integrado e agende pelo WhatsApp.';
+const schema = {
+  '@context': 'https://schema.org', '@type': 'MedicalClinic',
+  name: 'Centro de Imagem Integrado de Itaguara',
+  url: 'https://centrodeimagemitaguara.com.br/', telephone: '+5531972541945',
+  image: 'https://centrodeimagemitaguara.com.br/logo.png',
+  address: { '@type': 'PostalAddress', streetAddress: 'R. Antônio Pereira de Rezende, 19, 1º Andar, Sala 5 B — Jardim Europa', addressLocality: 'Itaguara', addressRegion: 'MG', postalCode: '35488-000', addressCountry: 'BR' },
+  sameAs: ['https://www.instagram.com/centrodeimagemitaguara/'],
+};
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title><meta name="description" content={description} />
+    <meta name="theme-color" content="#0056b3" />
+    <link rel="canonical" href="https://centrodeimagemitaguara.com.br/" />
+    <link rel="icon" type="image/png" href="/logoSimbolo.png" />
+    <meta property="og:type" content="website" /><meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Centro de Imagem Integrado de Itaguara" />
+    <meta property="og:title" content={title} /><meta property="og:description" content={description} />
+    <meta property="og:url" content="https://centrodeimagemitaguara.com.br/" />
+    <meta property="og:image" content="https://centrodeimagemitaguara.com.br/og-image.png" />
+    <meta property="og:image:alt" content="Centro Integrado de Imagem Itaguara — diagnóstico por imagem" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;650;700;750;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+  <body><a class="skip-link" href="#conteudo">Pular para o conteúdo</a><slot /></body>
+</html>
